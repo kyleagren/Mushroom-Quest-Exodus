@@ -62,14 +62,14 @@ func apply_gravity():
 
 func animate():
 	var animation = $AnimationPlayer.get_current_animation()
-	if animation == "Idle" and motion.x > 0:
+	if motion.y < 0:
+		$AnimationPlayer.play("Jump")
+	elif not animation == "Jump" and motion.x > 0:
 		$Sprite.flip_h = false
 		$AnimationPlayer.play("Run")
-	elif animation == "Idle" and motion.x < 0:
+	elif not animation == "Jump" and motion.x < 0:
 		$Sprite.flip_h = true
 		$AnimationPlayer.play("Run")
-	elif motion.y < 0:
-		$AnimationPlayer.play("Jump")
 	else:
 		$AnimationPlayer.play("Idle")
 
