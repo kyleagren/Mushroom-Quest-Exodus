@@ -6,13 +6,13 @@
 [node name="PlatformTiles" type="Node2D"]
 
 [node name="Platform_Large" type="Sprite" parent="."]
-position = Vector2( 355, 301 )
+position = Vector2( 303.32, 289.656 )
 texture = ExtResource( 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Platform_Large"]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform_Large/StaticBody2D"]
+position = Vector2( 0.630249, 20.168 )
 polygon = PoolVector2Array( -218.058, 15.8375, -226.272, 10.7041, -230.892, 3.5173, -238.592, -22.1498, -243.725, -26.2565, -249.886, -32.93, -250.399, -54.4904, 227.523, -53.977, 241.896, -36.01, 242.923, -26.7699, 239.843, -8.80289, 235.223, 6.08401, 187.482, 21.4843, 165.408, 21.9976, 94.567, 22.511, 33.9926, 18.4042, -32.7419, 15.8375, -84.5894, 16.8642, -143.624, 19.4309, -168.778, 23.5377, -200.605, 22.511, -212.925, 19.4309 )
 
 [node name="Platform_Small" type="Sprite" parent="."]
@@ -20,7 +20,7 @@ position = Vector2( 670, 302 )
 texture = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Platform_Small"]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform_Small/StaticBody2D"]
+position = Vector2( -127.31, 17.647 )
 polygon = PoolVector2Array( 18.3544, -49.6165, 19.325, -37.6458, 20.2955, -28.5869, 25.4721, -23.0868, 29.3545, -22.4397, 32.2663, -11.7631, 35.5016, -1.41003, 40.0311, 9.2666, 44.5605, 15.7372, 48.7665, 17.3549, 56.5313, 21.2373, 63.649, 24.1491, 76.2668, 25.4433, 85.6493, 25.4433, 95.6788, 25.4433, 107.65, 26.7374, 110.885, 24.1491, 118.003, 23.5021, 128.032, 22.855, 132.238, 22.2079, 161.356, 21.5609, 174.297, 22.2079, 188.209, 20.2667, 203.092, 16.3843, 218.622, 12.1784, 230.269, 7.97247, 236.416, 4.09003, 239.651, -5.61597, 240.622, -11.7631, 240.298, -27.6162, 242.24, -29.881, 241.593, -34.734, 235.769, -40.5576, 231.266, -50.9002 )
