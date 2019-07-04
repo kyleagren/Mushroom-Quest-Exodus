@@ -12,5 +12,5 @@ format = 1
 tile_data = PoolIntArray( -327665, 1, 0, -65529, 1, 0, 327680, 0, 0, 327687, 0, 0, 327694, 0, 0, 327701, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 107.336, 390.48 )
+position = Vector2( 111.232, 207.366 )
 collision_mask = 2

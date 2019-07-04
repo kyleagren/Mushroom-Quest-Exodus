@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/TutorialBox.gd" type="Script" id=1]
+[ext_resource path="res://Game Assets/kenvector_future.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 29.3421, 24.0833 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 2 )
+
+[node name="TutorialBox" type="Area2D"]
+position = Vector2( 187.882, 91.3593 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_top = -400.0
+margin_right = 20.0
+margin_bottom = -380.0
+
+[node name="Label" type="Label" parent="Popup"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -66.0
+margin_right = 66.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 2 )
+text = "Test"
+align = 1
+autowrap = true
+[connection signal="body_entered" from="." to="." method="_on_TutorialBox_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_TutorialBox_body_exited"]
