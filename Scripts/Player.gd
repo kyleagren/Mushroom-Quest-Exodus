@@ -21,18 +21,14 @@ func _physics_process(delta):
 	move_and_slide(motion, UP)
 
 func move():
-	var animation = $AnimationPlayer.get_current_animation()
 	if Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
 		motion.x = -speed
 		$Sprite.flip_h = true
-		if animation == "Idle":
-			$AnimationPlayer.play("Run")
 	elif Input.is_action_pressed("right") and not Input.is_action_pressed("left"):
 		motion.x = speed
+		$Sprite.flip_h = false
 	else:
 		motion.x = 0
-		if motion.y == GRAVITY and is_on_floor():
-			$AnimationPlayer.play("Idle")
 
 
 func jump():
@@ -65,10 +61,8 @@ func animate():
 	if motion.y < 0:
 		$AnimationPlayer.play("Jump")
 	elif not animation == "Jump" and motion.x > 0:
-		$Sprite.flip_h = false
 		$AnimationPlayer.play("Run")
 	elif not animation == "Jump" and motion.x < 0:
-		$Sprite.flip_h = true
 		$AnimationPlayer.play("Run")
 	else:
 		$AnimationPlayer.play("Idle")
