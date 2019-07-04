@@ -1,16 +1,27 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 86.2683, 44.2373 )
+
 [node name="Level" type="Node2D"]
+position = Vector2( -31.0826, -7522 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 collision_layer = 2
 format = 1
-tile_data = PoolIntArray( 7667840, 1, 0, 7733375, 1, 0, 7798910, 1, 0, 7864445, 1, 0, 7929980, 1, 0, 7995515, 1, 0, 8061050, 1, 0, 8126585, 1, 0, 8192120, 1, 0, 8257537, 0, 0, 8257544, 0, 0, 8257551, 0, 0, 8257558, 0, 0, 8257565, 0, 0, 8257580, 0, 0, 8257587, 0, 0, 8257594, 0, 0, 8257601, 0, 0, 8257608, 0, 0, 8257615, 0, 0, 8257622, 0, 0, 8257646, 0, 0, 8257653, 0, 0, 8257655, 1, 0, 25428589, 0, 0 )
+tile_data = PoolIntArray( 7602308, 1, 0, 7667843, 1, 0, 7733378, 1, 0, 7798913, 1, 0, 7864385, 0, 0, 7864448, 1, 0, 7929983, 1, 0, 7995518, 1, 0, 8061053, 1, 0, 8126588, 1, 0, 8192123, 1, 0, 8257537, 0, 0, 8257544, 0, 0, 8257551, 0, 0, 8257558, 0, 0, 8257565, 0, 0, 8257580, 0, 0, 8257587, 0, 0, 8257594, 0, 0, 8257608, 0, 0, 8257615, 0, 0, 8257622, 0, 0, 8257646, 0, 0, 8257653, 0, 0, 25428589, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 388.806, 7856.4 )
 collision_mask = 2
+
+[node name="Tutorial collisions" type="Area2D" parent="."]
+position = Vector2( 0, 41.7427 )
+
+[node name="Moving" type="CollisionShape2D" parent="Tutorial collisions"]
+position = Vector2( 385.091, 8000.63 )
+shape = SubResource( 1 )
