@@ -15,6 +15,7 @@ const JUMP_SPEED = 2000
 
 func _physics_process(delta):
 	apply_gravity()
+	wall_run()
 	move()
 	jump()
 	animate()
@@ -41,10 +42,23 @@ func jump():
 		can_double_jump = false
 		motion.y = 0
 		motion.y -= JUMP_SPEED
-		$AnimationPlayer.play("Jump")
 		jump_counter += 1
 		$JumpTimer.start()
-		
+
+
+func wall_run():
+	if is_on_wall():
+		motion.y = GRAVITY / 2.5
+		if jump_counter == number_of_jumps:
+			jump_counter = number_of_jumps - 1
+		if $Sprite.is_flipped_h():
+			if Input.is_action_just_pressed("jump"):
+				motion.x = JUMP_SPEED
+		elif not $Sprite.is_flipped_h():
+			if Input.is_action_just_pressed("jump"):
+				motion.x = -JUMP_SPEED
+			
+	
 
 
 func apply_gravity():
