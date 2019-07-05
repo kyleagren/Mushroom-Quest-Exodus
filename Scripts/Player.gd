@@ -15,23 +15,21 @@ const JUMP_SPEED = 2000
 
 func _physics_process(delta):
 	apply_gravity()
+	wall_run()
 	move()
 	jump()
+	animate()
 	move_and_slide(motion, UP)
 
 func move():
 	if Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
 		motion.x = -speed
 		$Sprite.flip_h = true
-		$AnimationPlayer.play("Run")
 	elif Input.is_action_pressed("right") and not Input.is_action_pressed("left"):
 		motion.x = speed
 		$Sprite.flip_h = false
-		$AnimationPlayer.play("Run")
 	else:
 		motion.x = 0
-		if motion.y == GRAVITY and is_on_floor():
-			$AnimationPlayer.play("Idle")
 
 
 func jump():
@@ -39,15 +37,28 @@ func jump():
 		can_double_jump = false
 		jump_counter = 1
 		motion.y -= JUMP_SPEED
-		$AnimationPlayer.stop()
-		$AnimationPlayer.play("Jump")
 		$JumpTimer.start()
 	if Input.is_action_just_pressed("jump") and not jump_counter == number_of_jumps and can_double_jump:
+		can_double_jump = false
 		motion.y = 0
 		motion.y -= JUMP_SPEED
-		$AnimationPlayer.play("Jump")
 		jump_counter += 1
+		$JumpTimer.start()
+
+
+func wall_run():
+	if is_on_wall():
+		motion.y = GRAVITY / 2.5
+		if jump_counter == number_of_jumps:
+			jump_counter = number_of_jumps - 1
+		if $Sprite.is_flipped_h():
+			if Input.is_action_just_pressed("jump"):
+				motion.x = JUMP_SPEED
+		elif not $Sprite.is_flipped_h():
+			if Input.is_action_just_pressed("jump"):
+				motion.x = -JUMP_SPEED
 			
+	
 
 
 func apply_gravity():
@@ -57,6 +68,19 @@ func apply_gravity():
 		motion.y = 1
 	else:
 		motion.y += GRAVITY
+
+
+func animate():
+	var animation = $AnimationPlayer.get_current_animation()
+	if motion.y < 0:
+		$AnimationPlayer.play("Jump")
+	elif not animation == "Jump" and motion.x > 0:
+		$AnimationPlayer.play("Run")
+	elif not animation == "Jump" and motion.x < 0:
+		$AnimationPlayer.play("Run")
+	else:
+		$AnimationPlayer.play("Idle")
+
 
 func _on_JumpTimer_timeout():
 	can_double_jump = true

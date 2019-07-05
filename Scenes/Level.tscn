@@ -1,16 +1,15 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Tileset.tres" type="TileSet" id=1]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Tileset.tres" type="TileSet" id=2]
 
 [node name="Level" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 1 )
-collision_layer = 2
-format = 1
-tile_data = PoolIntArray( -327665, 1, 0, -65529, 1, 0, 327680, 0, 0, 327687, 0, 0, 327694, 0, 0, 327701, 0, 0 )
-
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 107.336, 390.48 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 111.232, 207.366 )
 collision_mask = 2
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+format = 1
+tile_data = PoolIntArray( -2162665, 1, 0, -1703944, 4, 0, -1245192, 4, 0, -1048583, 1, 0, -983033, 1, 0, -786440, 4, 0, -589824, 1, 0, -589813, 1, 0, -589778, 5, 0, -327688, 4, 0, -262127, 1, 0, -131031, 3, 0, 131064, 4, 0, 65545, 1, 0, 196636, 3, 0, 196642, 0, 0, 589817, 0, 0, 524288, 0, 0, 524295, 0, 0, 524302, 0, 0, 524309, 0, 0 )
