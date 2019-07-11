@@ -10,6 +10,8 @@ var can_double_jump
 const GRAVITY = 100
 const UP = Vector2(0, -1)
 const JUMP_SPEED = 2000
+const HEIGHT_BOUNDARY = 10000
+const SLOWNESS_MODIFIER = 0.7
 
 
 
@@ -20,6 +22,7 @@ func _physics_process(delta):
 	jump()
 	animate()
 	move_and_slide(motion, UP)
+	lose()
 
 func move():
 	if Input.is_action_pressed("left") and not Input.is_action_pressed("right"):
@@ -48,7 +51,7 @@ func jump():
 
 func wall_run():
 	if is_on_wall():
-		motion.y = GRAVITY / 2.5
+		motion.y = GRAVITY / SLOWNESS_MODIFIER
 		if jump_counter == number_of_jumps:
 			jump_counter = number_of_jumps - 1
 		if $Sprite.is_flipped_h():
@@ -57,8 +60,6 @@ func wall_run():
 		elif not $Sprite.is_flipped_h():
 			if Input.is_action_just_pressed("jump"):
 				motion.x = -JUMP_SPEED
-			
-	
 
 
 func apply_gravity():
@@ -80,6 +81,11 @@ func animate():
 		$AnimationPlayer.play("Run")
 	else:
 		$AnimationPlayer.play("Idle")
+
+
+func lose():
+	if position.y > HEIGHT_BOUNDARY:
+		get_tree().reload_current_scene()
 
 
 func _on_JumpTimer_timeout():
