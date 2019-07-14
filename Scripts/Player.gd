@@ -2,14 +2,15 @@ extends KinematicBody2D
 
 var motion = Vector2()
 var speed = 1000
-var number_of_jumps = 1
+var number_of_jumps = 5
 var jump_counter = 0
 var dash_counter = 0
 var can_double_jump
 var is_dashing = false
 var dash_available = true
-var number_of_dashes = 0
-var can_wall_run = false
+var number_of_dashes = 2
+var can_wall_run = true
+var dash_direction
 
 const GRAVITY = 100
 const UP = Vector2(0, -1)
@@ -17,7 +18,6 @@ const JUMP_SPEED = 2000
 const HEIGHT_BOUNDARY = 8000
 const SLOWNESS_MODIFIER = 0.7
 const DASH_DISTANCE = 3000
-const DASH_ANGLE = deg2rad(90)
 
 
 
@@ -44,12 +44,12 @@ func move():
 
 
 func jump():
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_dashing:
 		can_double_jump = false
 		jump_counter = 1
 		motion.y -= JUMP_SPEED
 		$JumpTimer.start()
-	if Input.is_action_just_pressed("jump") and not jump_counter == number_of_jumps and can_double_jump:
+	if Input.is_action_just_pressed("jump") and not jump_counter == number_of_jumps and can_double_jump and not is_dashing:
 		can_double_jump = false
 		motion.y = 0
 		motion.y -= JUMP_SPEED
@@ -70,24 +70,52 @@ func wall_run():
 				motion.x = -JUMP_SPEED
 
 
+#func dash():
+#	if Input.is_action_just_pressed("dash") and not $Sprite.is_flipped_h() and dash_available and not dash_counter == number_of_dashes:
+#		is_dashing = true
+#		$DashTimer.start()
+#		dash_counter += 1
+#		$Sprite.rotation = DASH_ANGLE
+#		motion.y = 0
+#		motion.x += DASH_DISTANCE
+#		dash_available = false
+#		$DashRecharge.start()
+#	elif Input.is_action_just_pressed("dash") and $Sprite.is_flipped_h() and dash_available and not dash_counter == number_of_dashes:
+#		is_dashing = true
+#		$DashTimer.start()
+#		dash_counter += 1
+#		$Sprite.rotation = -DASH_ANGLE
+#		motion.y = 0
+#		motion.x -= DASH_DISTANCE
+#		dash_available = false
+#		$DashRecharge.start()
+#
+#	if dash_counter == number_of_dashes and is_on_floor():
+#		dash_counter = 0
+
+
 func dash():
-	if Input.is_action_just_pressed("dash") and not $Sprite.is_flipped_h() and dash_available and not dash_counter == number_of_dashes:
+	if Input.is_action_just_pressed("dash") and dash_available and not dash_counter == number_of_dashes:
 		is_dashing = true
-		dash_counter += 1
-		$Sprite.rotation = DASH_ANGLE
 		$DashTimer.start()
-		motion.y = 0
-		motion.x += DASH_DISTANCE
-	elif Input.is_action_just_pressed("dash") and $Sprite.is_flipped_h() and dash_available and not dash_counter == number_of_dashes:
-		is_dashing = true
 		dash_counter += 1
-		$Sprite.rotation = -DASH_ANGLE
-		$DashTimer.start()
 		motion.y = 0
-		motion.x -= DASH_DISTANCE
+		dash_available = false
+		$DashRecharge.start()
+		
+		if not $Sprite.is_flipped_h():
+			dash_direction = "right"
+		else:
+			dash_direction = "left"
+			
+		if dash_direction == "left":
+			motion.x += -DASH_DISTANCE
+		elif dash_direction == "right":
+			motion.x += DASH_DISTANCE
 		
 	if dash_counter == number_of_dashes and is_on_floor():
 		dash_counter = 0
+
 
 
 func apply_gravity():
@@ -101,14 +129,27 @@ func apply_gravity():
 
 func animate():
 	var animation = $AnimationPlayer.get_current_animation()
-	if motion.y < 0:
+	if motion.y < 0 and jump_counter == 1:
 		$AnimationPlayer.play("Jump")
+		$Sprite.rotation = 0
+	elif is_dashing:
+		if dash_direction == "right":
+			$AnimationPlayer.play("DashRight")
+		elif dash_direction == "left":
+			$AnimationPlayer.play("DashLeft")
+	elif motion.y < 0 and not $Sprite.is_flipped_h() and jump_counter > 1 and not animation == "DoubleJumpLeft":
+		$AnimationPlayer.play("DoubleJumpRight")
+	elif motion.y < 0 and $Sprite.is_flipped_h() and jump_counter > 1 and not animation == "DoubleJumpRight":
+		$AnimationPlayer.play("DoubleJumpLeft")
 	elif not animation == "Jump" and motion.x > 0:
 		$AnimationPlayer.play("Run")
+		$Sprite.rotation = 0
 	elif not animation == "Jump" and motion.x < 0:
 		$AnimationPlayer.play("Run")
+		$Sprite.rotation = 0
 	else:
 		$AnimationPlayer.play("Idle")
+		$Sprite.rotation = 0
 
 
 func lose():
@@ -123,8 +164,6 @@ func _on_JumpTimer_timeout():
 func _on_DashTimer_timeout():
 	is_dashing = false
 	$Sprite.rotation = 0
-	dash_available = false
-	$DashRecharge.start()
 
 
 func _on_DashRecharge_timeout():
