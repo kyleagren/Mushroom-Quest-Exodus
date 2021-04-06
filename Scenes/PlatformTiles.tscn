@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game Assets/Platform1.PNG" type="Texture" id=1]
 [ext_resource path="res://Game Assets/Platform2.PNG" type="Texture" id=2]
+[ext_resource path="res://Game Assets/Platform_Diagonal.PNG" type="Texture" id=3]
+[ext_resource path="res://Game Assets/Platform_Diagonal2.png" type="Texture" id=4]
+[ext_resource path="res://Game Assets/Wall.PNG" type="Texture" id=5]
+[ext_resource path="res://Game Assets/Wall2.PNG" type="Texture" id=6]
 
 [node name="PlatformTiles" type="Node2D"]
 
@@ -12,8 +16,9 @@ texture = ExtResource( 1 )
 [node name="StaticBody2D" type="StaticBody2D" parent="Platform_Large"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform_Large/StaticBody2D"]
+visible = false
 position = Vector2( 0.630249, 20.168 )
-polygon = PoolVector2Array( -218.058, 15.8375, -226.272, 10.7041, -230.892, 3.5173, -238.592, -22.1498, -243.725, -26.2565, -249.886, -32.93, -250.399, -54.4904, 227.523, -53.977, 241.896, -36.01, 242.923, -26.7699, 239.843, -8.80289, 235.223, 6.08401, 187.482, 21.4843, 165.408, 21.9976, 94.567, 22.511, 33.9926, 18.4042, -32.7419, 15.8375, -84.5894, 16.8642, -143.624, 19.4309, -168.778, 23.5377, -200.605, 22.511, -212.925, 19.4309 )
+polygon = PoolVector2Array( -218.058, 15.8375, -226.272, 10.7041, -230.892, 3.5173, -238.592, -22.1498, -242.458, -26.0494, -243.193, -42.7, -240.869, -51.8683, -234.12, -53.0785, 226.653, -53.4572, 236.583, -35.5825, 238.967, -25.2549, 239.843, -8.80289, 235.223, 6.08401, 187.482, 21.4843, 165.408, 21.9976, 94.567, 22.511, 33.9926, 18.4042, -32.7419, 15.8375, -84.5894, 16.8642, -143.624, 19.4309, -168.778, 23.5377, -200.605, 22.511, -212.925, 19.4309 )
 
 [node name="Platform_Small" type="Sprite" parent="."]
 position = Vector2( 670, 302 )
@@ -22,5 +27,48 @@ texture = ExtResource( 2 )
 [node name="StaticBody2D" type="StaticBody2D" parent="Platform_Small"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform_Small/StaticBody2D"]
+visible = false
 position = Vector2( -127.31, 17.647 )
 polygon = PoolVector2Array( 18.3544, -49.6165, 19.325, -37.6458, 20.2955, -28.5869, 25.4721, -23.0868, 29.3545, -22.4397, 32.2663, -11.7631, 35.5016, -1.41003, 40.0311, 9.2666, 44.5605, 15.7372, 48.7665, 17.3549, 56.5313, 21.2373, 63.649, 24.1491, 76.2668, 25.4433, 85.6493, 25.4433, 95.6788, 25.4433, 107.65, 26.7374, 110.885, 24.1491, 118.003, 23.5021, 128.032, 22.855, 132.238, 22.2079, 161.356, 21.5609, 174.297, 22.2079, 188.209, 20.2667, 203.092, 16.3843, 218.622, 12.1784, 230.269, 7.97247, 236.416, 4.09003, 239.651, -5.61597, 240.622, -11.7631, 240.298, -27.6162, 242.24, -29.881, 241.593, -34.734, 235.769, -40.5576, 231.266, -50.9002 )
+
+[node name="Platform_Diagonal" type="Sprite" parent="."]
+position = Vector2( 1171.57, 534.551 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platform_Diagonal"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform_Diagonal/StaticBody2D"]
+visible = false
+position = Vector2( 1005.4, -5.83179 )
+polygon = PoolVector2Array( -1162.21, -187.8, -826.298, 152.775, -829.797, 170.271, -861.288, 194.764, -919.606, 162.106, -1045.57, 23.3102, -1151.71, -71.1643, -1186.7, -106.155, -1192.53, -124.816, -1178.54, -158.641 )
+
+[node name="Platform_Diagonal2" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 1632.8, 536.823 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Platform_Diagonal2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform_Diagonal2/StaticBody2D"]
+visible = false
+polygon = PoolVector2Array( 161.082, -164.412, -199.321, 138.84, -193.489, 154.002, -178.326, 156.335, -145.669, 173.83, -114.177, 167.999, 23.4524, 37.3672, 126.092, -40.7784, 176.245, -85.0998, 203.071, -123.589, 200.738, -141.085, 170.756, -171.697 )
+
+[node name="Wall" type="Sprite" parent="."]
+position = Vector2( 162.766, 727.678 )
+texture = ExtResource( 5 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall/StaticBody2D"]
+visible = false
+polygon = PoolVector2Array( 38.1985, -247.962, 38.1985, 224.41, 6.70695, 237.24, -18.9528, 231.409, -29.4499, 204.582, -37.6144, 136.934, -31.7827, -22.8563, -35.2817, -190.811, -31.7827, -224.635, -4.95656, -238.632, 17.2041, -252.628 )
+
+[node name="Wall2" type="Sprite" parent="."]
+position = Vector2( 623.998, 714.045 )
+texture = ExtResource( 6 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall2/StaticBody2D"]
+visible = false
+polygon = PoolVector2Array( -24.1409, -233.163, -25.3073, 236.877, -4.31293, 241.542, -4.31293, 232.212, 31.844, 218.215, 45.8403, 180.892, 41.1749, 124.907, 38.8421, -8.05695, 48.1729, -132.857, 47.0065, -183.01, 29.5113, -244.827, -7.81201, -250.658 )

@@ -5,5 +5,3 @@ Mushroom Quest: Exodus. Learning to program without learning art.
 Just working on a game with my little brother. Neither of us knows art very well, or even Godot. We just out here messin' around. 
 
 To be honest I really don't even know how to prevent things from being pushed to master so please be nice if you decide to touch it. 
-
-In its current state on Github it is missing quite a few pieces. Sadly I think they may have been lost during a hardware upgrade. I guess you could consider it a valuable lesson in being more faithful with version control...
